@@ -1,6 +1,6 @@
-package com.greata.orderly.dao;
+package com.greata.cozy.dao;
 
-import com.greata.orderly.entities.Product;
+import com.greata.cozy.entities.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;

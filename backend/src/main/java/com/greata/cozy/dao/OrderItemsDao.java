@@ -1,5 +1,5 @@
-package com.greata.orderly.dao;
-import com.greata.orderly.entities.OrderItems;
+package com.greata.cozy.dao;
+import com.greata.cozy.entities.OrderItems;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

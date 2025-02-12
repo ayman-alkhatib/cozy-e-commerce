@@ -1,4 +1,4 @@
-package com.greata.orderly.entities;
+package com.greata.cozy.entities;
 
 public class OrderItems {
     private long id;

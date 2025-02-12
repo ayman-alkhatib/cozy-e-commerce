@@ -1,23 +1,21 @@
-package com.greata.orderly.serveces;
+package com.greata.cozy.serveces;
 
-import com.greata.orderly.dao.OrderItemsDao;
-import com.greata.orderly.dao.OrdersDao;
-import com.greata.orderly.dao.ProductDao;
-import com.greata.orderly.dto.OrderItemDTO;
-import com.greata.orderly.dto.OrderRequestDTO;
-import com.greata.orderly.dto.OrderResponseDTO;
-import com.greata.orderly.dto.OrderResponseItemDTO;
-import com.greata.orderly.entities.OrderItems;
-import com.greata.orderly.entities.Orders;
-import com.greata.orderly.entities.Product;
+import com.greata.cozy.dao.OrderItemsDao;
+import com.greata.cozy.dao.OrdersDao;
+import com.greata.cozy.dao.ProductDao;
+import com.greata.cozy.dto.OrderItemDTO;
+import com.greata.cozy.dto.OrderRequestDTO;
+import com.greata.cozy.dto.OrderResponseDTO;
+import com.greata.cozy.dto.OrderResponseItemDTO;
+import com.greata.cozy.entities.OrderItems;
+import com.greata.cozy.entities.Orders;
+import com.greata.cozy.entities.Product;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderService {

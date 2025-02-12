@@ -1,8 +1,4 @@
-package com.greata.orderly.entities;
-
-import org.springframework.core.annotation.Order;
-
-import java.util.List;
+package com.greata.cozy.entities;
 
 public class Orders {
     private long id;

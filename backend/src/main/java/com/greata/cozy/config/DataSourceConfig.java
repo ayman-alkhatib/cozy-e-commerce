@@ -1,12 +1,11 @@
-package com.greata.orderly.config;
+package com.greata.cozy.config;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
@@ -28,8 +27,7 @@ public class DataSourceConfig {
         DriverManagerDataSource driver = new DriverManagerDataSource(
                 url,
                 username,
-                password
-        );
+                password);
         driver.setDriverClassName(driverClassName);
         return driver;
     }

@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.greata</groupId>
-	<artifactId>Orderly</artifactId>
+	<artifactId>cozy</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Orderly</name>
-	<description>Orderly</description>
+	<name>cozy</name>
+	<description>cozy</description>
 	<url/>
 	<licenses>
 		<license/>

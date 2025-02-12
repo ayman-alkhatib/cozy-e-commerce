@@ -1,4 +1,4 @@
-package com.greata.orderly.entities;
+package com.greata.cozy.entities;
 
 public class User {
     private long id;

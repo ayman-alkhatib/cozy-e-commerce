@@ -1,4 +1,4 @@
-package com.greata.orderly.dto;
+package com.greata.cozy.dto;
 
 import java.util.List;
 
