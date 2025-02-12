@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* main color */
+:root {
+  --main-color: #3AA39F;
+  --main-color-dark: #2B7A78;
+}
+
+/*start container*/
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*small*/
+@media (min-width:768px) {
+  .container {
+    width: 720px;
+  }
+}
+
+/*medium */
+@media (min-width:992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/*large */
+@media (min-width:1200px) {
+  .container {
+    width: 1150px;
+  }
+}
+
+/*end container */
