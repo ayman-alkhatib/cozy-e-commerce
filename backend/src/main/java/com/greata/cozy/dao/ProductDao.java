@@ -21,6 +21,8 @@ public class ProductDao {
             rs.getLong("id"),
             rs.getString("name"),
             rs.getString("description"),
+            rs.getString("category"),
+            rs.getString("thumbnail"),
             rs.getDouble("price"),
             rs.getInt("stock_quantity")
     );
@@ -42,8 +44,8 @@ public class ProductDao {
     }
 
     public ResponseEntity<Product> saveProduct(Product product) {
-        String sql = "INSERT INTO products (name, description, price, stock_quantity) VALUES (?, ?, ?, ?)";
-        int rowAffected= jdbcTemplate.update(sql, product.getName(), product.getDescription(), product.getPrice(), product.getQuantity());
+        String sql = "INSERT INTO products (name, description, category,thumbnail, price, stock_quantity) VALUES (?, ?, ?, ?, ?, ?)";
+        int rowAffected= jdbcTemplate.update(sql, product.getName(), product.getDescription(),product.getCategory(),product.getThumbnail(), product.getPrice(), product.getQuantity());
         return rowAffected>0? ResponseEntity.ok(product) : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
