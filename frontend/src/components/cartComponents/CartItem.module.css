@@ -76,3 +76,20 @@
 .quantity button:last-of-type {
     border-left: none;
 }
+
+@media screen and (max-width: 768px) {
+    .cartItem {
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .price {
+        margin-right: auto;
+    }
+
+    .cartItem img {
+        width: 90%;
+    }
+}
