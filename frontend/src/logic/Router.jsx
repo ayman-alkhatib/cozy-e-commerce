@@ -15,6 +15,7 @@ import Address from "../components/cartComponents/Address";
 import Payment from "../components/cartComponents/Payment";
 import fetchProducts from "../api/fetchProducts";
 import fetchProductById from "../api/fetchProductById";
+import OrdersPage from "../pages/OrdersPage";
 
 export const routes = {
   ProductListPage: "/products",
@@ -22,6 +23,7 @@ export const routes = {
   CartPage: "/cart/items",
   LoginPage: "/login",
   AdminPage: "/admin",
+  orders: "/orders",
 };
 
 export const router = createHashRouter(
@@ -37,14 +39,14 @@ export const router = createHashRouter(
         element={<ProductDetailsPage />}
         loader={({ params }) => fetchProductById(params.id)}
       />
-      ,
-      <Route path="/cart" element={<CartPage />}>
+      <Route path="cart" element={<CartPage />}>
         <Route path="items" element={<CartItemsList />} />
         <Route path="address" element={<Address />} />
         <Route path="payment" element={<Payment />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/orders" element={<OrdersPage />} />
     </Route>
   )
 );

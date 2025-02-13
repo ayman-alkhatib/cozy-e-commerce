@@ -16,6 +16,9 @@ function NavBar() {
           <li>
             <Link to={routes.AdminPage}>Admin</Link>
           </li>
+          <li>
+            <Link to={routes.orders}>Orders</Link>
+          </li>
         </ul>
 
         <div className={styles.login}>
