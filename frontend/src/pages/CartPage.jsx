@@ -1,13 +1,12 @@
+import orderPost from "../api/orderPost";
 import { useCart } from "../logic/CartContext";
 import styles from "./CartPage.module.css";
 import { Outlet, useLocation, useNavigate } from "react-router";
 function CartPage() {
   const { cart } = useCart();
-  console.log(`from component: `, cart);
-
   const navigate = useNavigate();
-  const path = useLocation().pathname;
 
+  const path = useLocation().pathname;
   function handleCheckout() {
     if (path === "/cart/address") {
       navigate("/cart/payment");
@@ -16,6 +15,18 @@ function CartPage() {
       navigate("/cart/address");
     }
     if (path === "/cart/payment") {
+      const address = JSON.parse(localStorage.getItem("selectedAddress"));
+
+      const orderObj = {
+        email: address.email,
+        items: cart.map((cartItem) => {
+          return {
+            productId: cartItem.product.id,
+            quantity: cartItem.quantity,
+          };
+        }),
+      };
+      orderPost(orderObj);
       alert("Order placed successfully!");
       navigate("/products");
     }
@@ -75,35 +86,3 @@ function OrderItem({ title, value }) {
     </div>
   );
 }
-
-// const fakeData = {
-//   id: 99,
-//   name: "Ergonomic Office Chair",
-//   description:
-//     "A premium ergonomic office chair designed for long hours of work. Features include adjustable armrests, lumbar support, a breathable mesh back, and a 360-degree swivel base for maximum comfort.",
-//   category: "furniture",
-//   thumbnail: "image.png",
-//   price: 129.99,
-//   quantity: 50,
-//   images: [
-//     "/image1.png",
-//     "/image2.png",
-//     "/image3.png",
-//     "/image4.png",
-//     "/image5.png",
-//   ],
-// };
-
-// const cartItem = {
-//   product: {
-//     id: 100,
-//     name: "Gaming Chair",
-//     description: "High-back gaming chair with headrest and reclining function.",
-//     category: "furniture",
-//     thumbnail:
-//       "https://i.pinimg.com/736x/39/b9/10/39b910f81acad40d1f9e59d7c0d4d2ad.jpg",
-//     price: 199.99,
-//     quantity: 0,
-//   },
-//   quantity: 2,
-// };

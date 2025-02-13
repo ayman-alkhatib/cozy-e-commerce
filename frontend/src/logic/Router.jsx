@@ -13,25 +13,8 @@ import LoginPage from "../pages/LoginPage";
 import CartItemsList from "../components/cartComponents/CartItemsList";
 import Address from "../components/cartComponents/Address";
 import Payment from "../components/cartComponents/Payment";
-import { CartProvider } from "./CartContext";
-
-const fakeData = {
-  id: 99,
-  name: "Ergonomic Office Chair",
-  description:
-    "A premium ergonomic office chair designed for long hours of work. Features include adjustable armrests, lumbar support, a breathable mesh back, and a 360-degree swivel base for maximum comfort.",
-  category: "furniture",
-  thumbnail: "image.png",
-  price: 129.99,
-  quantity: 10,
-  images: [
-    "/image1.png",
-    "/image2.png",
-    "/image3.png",
-    "/image4.png",
-    "/image5.png",
-  ],
-};
+import fetchProducts from "../api/fetchProducts";
+import fetchProductById from "../api/fetchProductById";
 
 export const routes = {
   ProductListPage: "/products",
@@ -44,14 +27,19 @@ export const routes = {
 export const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<NavBar />}>
-      <Route path="/products" element={<ProductListPage />} />
+      <Route
+        path="/products"
+        element={<ProductListPage />}
+        loader={fetchProducts}
+      />
       <Route
         path="/product/:id"
-        element={<ProductDetailsPage product={fakeData} />}
+        element={<ProductDetailsPage />}
+        loader={({ params }) => fetchProductById(params.id)}
       />
       ,
       <Route path="/cart" element={<CartPage />}>
-        <Route path="items" element={<CartItemsList product={fakeData} />} />
+        <Route path="items" element={<CartItemsList />} />
         <Route path="address" element={<Address />} />
         <Route path="payment" element={<Payment />} />
       </Route>

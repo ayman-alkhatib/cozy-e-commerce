@@ -25,7 +25,7 @@ function ProductCard({ product }) {
     setInCart(true);
   }
   function handleRemoveFromCart() {
-    removeFromCart(product);
+    removeFromCart(product.id);
     setInCart(false);
   }
 

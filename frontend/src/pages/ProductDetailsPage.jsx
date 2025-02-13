@@ -1,11 +1,14 @@
 import { useState } from "react";
 import styles from "./ProductDetailsPage.module.css";
 import { useCart } from "../logic/CartContext";
-function ProductDetailsPage({ product }) {
+import { useLoaderData, useNavigation } from "react-router";
+import Loading from "../components/Loading";
+function ProductDetailsPage() {
   const [inCart, setInCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { addToCart, removeFromCart } = useCart();
-
+  const product = useLoaderData();
+  const navigation = useNavigation();
   function handleAddToCart() {
     addToCart(product, quantity);
     setInCart(true);
@@ -22,16 +25,18 @@ function ProductDetailsPage({ product }) {
     setQuantity((s) => s - 1);
   }
 
+  if (navigation.state === "loading") return <Loading />;
+
   return (
     <div className="container">
       <div className={styles.productDetailsPage}>
         <section className={styles.productInfos}>
           <div className={styles.path}>
-            <span>Home</span> / <span>{fakeData.name}</span> /
+            <span>Home</span> / <span>{product.name}</span> /
           </div>
-          <h1>{fakeData.name}</h1>
-          <p className={styles.price}>${fakeData.price}</p>
-          <p className={styles.description}>{fakeData.description}</p>
+          <h1>{product.name}</h1>
+          <p className={styles.price}>${product.price}</p>
+          <p className={styles.description}>{product.description}</p>
           <ul className={styles.colors}>
             <li>
               <span
@@ -81,11 +86,11 @@ function ProductDetailsPage({ product }) {
         </section>
         <section className={styles.productImages}>
           <div className={styles.mainImage}>
-            <img src={"/" + fakeData.thumbnail} alt={fakeData.name} />
+            <img src={product.thumbnail} alt={product.name} />
           </div>
           <div className={styles.moreImages}>
-            {fakeData.images.map((image, index) => (
-              <img key={index} src={image} alt={fakeData.name} />
+            {product.images.map((image, index) => (
+              <img key={index} src={image} alt={product.name} />
             ))}
           </div>
         </section>
@@ -95,21 +100,3 @@ function ProductDetailsPage({ product }) {
 }
 
 export default ProductDetailsPage;
-
-const fakeData = {
-  id: 99,
-  name: "Ergonomic Office Chair",
-  description:
-    "A premium ergonomic office chair designed for long hours of work. Features include adjustable armrests, lumbar support, a breathable mesh back, and a 360-degree swivel base for maximum comfort.",
-  category: "furniture",
-  thumbnail: "image.png",
-  price: 129.99,
-  quantity: 50,
-  images: [
-    "/image1.png",
-    "/image2.png",
-    "/image3.png",
-    "/image4.png",
-    "/image5.png",
-  ],
-};

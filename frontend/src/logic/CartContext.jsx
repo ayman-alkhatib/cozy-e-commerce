@@ -15,22 +15,20 @@ export function CartProvider({ children }) {
   function updateCart(updatedCart) {
     if (updatedCart) {
       setCart(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
   }
 
   function addToCart(product, quantity = 1) {
-    const lsCart = localStorage.getItem("cart");
-    if (lsCart) {
-      const cart = JSON.parse(lsCart);
-      updateCart([...cart, { product: product, quantity: quantity }]);
-    } else {
-      updateCart([{ product: product, quantity: quantity }]);
-    }
+    updateCart([...cart, { product, quantity }]);
   }
 
   function removeFromCart(id) {
-    const cart = JSON.parse(localStorage.getItem("cart"));
+    console.log(id);
+    console.log(
+      "from remove functio ",
+      cart.filter((el) => el.product.id !== id)
+    );
     updateCart(cart.filter((el) => el.product.id !== id));
   }
 
