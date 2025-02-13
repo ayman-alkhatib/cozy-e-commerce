@@ -16,7 +16,7 @@ function ProductCard({ product }) {
   }, [product]);
 
   function handleClick() {
-    console.log(product.id);
+    if (outOfStock) return;
     navigate(`/product/${product.id}`);
   }
 
@@ -30,7 +30,10 @@ function ProductCard({ product }) {
   }
 
   return (
-    <div className={styles.productCard}>
+    <div
+      className={`${styles.productCard} ${outOfStock && styles.outOfStock}`}
+      style={outOfStock ? { cursor: "default" } : {}}
+    >
       <div className={styles.productImage} onClick={handleClick}>
         <img src={product.thumbnail} alt="product" />
       </div>

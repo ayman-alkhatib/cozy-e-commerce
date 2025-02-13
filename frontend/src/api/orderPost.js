@@ -5,7 +5,13 @@ export default async function orderPost(order) {
                 "Content-Type": "application/json"
             }, body: JSON.stringify(order)
         })
-        if (!res.ok) throw Error("Failed to fetch products list data. Please try again later.")
+        console.log(res)
+        if (!res.ok) {
+            console.log(res.statusText)
+            console.log(await res.json())
+            throw Error("Failed to fetch products list data. Please try again later.")
+        }
+        return res
     } catch (error) {
         throw error
     }

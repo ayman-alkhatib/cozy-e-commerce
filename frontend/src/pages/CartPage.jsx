@@ -3,11 +3,11 @@ import { useCart } from "../logic/CartContext";
 import styles from "./CartPage.module.css";
 import { Outlet, useLocation, useNavigate } from "react-router";
 function CartPage() {
-  const { cart } = useCart();
+  const { cart, updateCart } = useCart();
   const navigate = useNavigate();
 
   const path = useLocation().pathname;
-  function handleCheckout() {
+  async function handleCheckout() {
     if (path === "/cart/address") {
       navigate("/cart/payment");
     }
@@ -26,9 +26,14 @@ function CartPage() {
           };
         }),
       };
-      orderPost(orderObj);
-      alert("Order placed successfully!");
-      navigate("/products");
+      const res = await orderPost(orderObj);
+      if (res.ok) {
+        updateCart([]);
+        alert("Order placed successfully!");
+        navigate("/products");
+      } else {
+        alert("something went wrong");
+      }
     }
   }
   return (

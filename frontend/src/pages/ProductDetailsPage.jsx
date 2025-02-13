@@ -19,9 +19,11 @@ function ProductDetailsPage() {
   }
 
   function handleIncrement() {
+    if (quantity >= product.quantity) return;
     setQuantity((s) => s + 1);
   }
   function handleDecrement() {
+    if (quantity <= 1) return;
     setQuantity((s) => s - 1);
   }
 
@@ -37,6 +39,7 @@ function ProductDetailsPage() {
           <h1>{product.name}</h1>
           <p className={styles.price}>${product.price}</p>
           <p className={styles.description}>{product.description}</p>
+          <p>stock: {product.quantity}</p>
           <ul className={styles.colors}>
             <li>
               <span
