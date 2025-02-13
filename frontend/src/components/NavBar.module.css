@@ -62,19 +62,3 @@ a {
     background-color: var(--main-color-dark);
     transition: 0.5s;
 }
-
-.search {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px solid #f1f1f1;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-.search input {
-    border: none;
-    outline: none;
-    font-size: 1.2em;
-    font-weight: 500;
-}

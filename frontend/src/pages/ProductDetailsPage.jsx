@@ -1,5 +1,27 @@
+import { useState } from "react";
 import styles from "./ProductDetailsPage.module.css";
-function ProductDetailsPage() {
+import { useCart } from "../logic/CartContext";
+function ProductDetailsPage({ product }) {
+  const [inCart, setInCart] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart, removeFromCart } = useCart();
+
+  function handleAddToCart() {
+    addToCart(product, quantity);
+    setInCart(true);
+  }
+  function handleRemoveFromCart() {
+    removeFromCart(product.id);
+    setInCart(false);
+  }
+
+  function handleIncrement() {
+    setQuantity((s) => s + 1);
+  }
+  function handleDecrement() {
+    setQuantity((s) => s - 1);
+  }
+
   return (
     <div className="container">
       <div className={styles.productDetailsPage}>
@@ -38,12 +60,23 @@ function ProductDetailsPage() {
           </ul>
           <div className={styles.actions}>
             <div className={styles.quantity}>
-              <button>-</button>
-              <span>1</span>
-              <button>+</button>
+              <button onClick={handleDecrement}>-</button>
+              <span>{quantity}</span>
+              <button onClick={handleIncrement}>+</button>
             </div>
 
-            <button className={styles.addToCart}>Add to Cart</button>
+            {!inCart ? (
+              <button className={styles.addToCart} onClick={handleAddToCart}>
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                onClick={handleRemoveFromCart}
+                className={styles.removeBtn}
+              >
+                remove from cart
+              </button>
+            )}
           </div>
         </section>
         <section className={styles.productImages}>

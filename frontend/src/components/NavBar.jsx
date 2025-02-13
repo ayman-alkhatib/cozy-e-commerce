@@ -6,9 +6,6 @@ function NavBar() {
     <>
       <div className={styles.navbar}>
         <span className={styles.logo}>Cozy®</span>
-        <div className={styles.search}>
-          <input type="text" placeholder="Search..." />
-        </div>
         <ul className={styles.navbarList}>
           <li className={styles.active}>
             <Link to={routes.ProductListPage}>Products</Link>
