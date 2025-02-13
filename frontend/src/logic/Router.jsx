@@ -9,11 +9,13 @@ import {
   Route,
 } from "react-router";
 import NavBar from "../components/NavBar";
+import LoginPage from "../pages/LoginPage";
 
 export const routes = {
   ProductListPage: "/products",
   ProductDetailsPage: "/product",
   CartPage: "/cart",
+  LoginPage: "/login",
   AdminPage: "/admin",
 };
 
@@ -22,7 +24,8 @@ export const router = createHashRouter(
     <Route path="/" element={<NavBar />}>
       <Route path="/products" element={<ProductListPage />} />
       <Route path="/product/:id" element={<ProductDetailsPage />} />,
-      <Route path="/cart" element={<CartPage />} />
+      <Route path="/cart" element={<CartPage />}></Route>
+      <Route path="login" element={<LoginPage />} />
       <Route path="/admin" element={<AdminPage />} />
     </Route>
   )
