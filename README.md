@@ -25,6 +25,20 @@ Cozy E-Commerce is a full-stack e-commerce application built with a Spring Boot 
 - React Router
 - CSS Modules
 
+## Project Structure
+
+### Backend
+
+- `src/main/java/com/greata/cozy`: Java source files
+- `src/main/resources`: Configuration files and SQL scripts
+
+### Frontend
+
+- `src/components`: React components
+- `src/pages`: React pages
+- `src/logic`: Context and router logic
+- `src/api`: API calls
+
 ## Getting Started
 
 ### Prerequisites
