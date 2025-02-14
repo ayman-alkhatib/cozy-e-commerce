@@ -60,7 +60,7 @@ public class ProductDao {
     }
 
     public ResponseEntity<String> updateProductQuantity(long id, int quantity) {
-        if(isProductExist(id)) {
+        if(!isProductExist(id)) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("product not found");
         }
         if(quantity < 0) {

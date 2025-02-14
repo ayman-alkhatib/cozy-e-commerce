@@ -29,6 +29,7 @@ CREATE TABLE orders (
         id BIGINT AUTO_INCREMENT PRIMARY KEY,
         user_id BIGINT,
         email VARCHAR(255) NOT NULL,
+        address LONGTEXT ,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
 );
