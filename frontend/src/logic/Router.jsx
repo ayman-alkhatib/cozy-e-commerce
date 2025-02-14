@@ -10,9 +10,9 @@ import {
 } from "react-router";
 import NavBar from "../components/NavBar";
 import LoginPage from "../pages/LoginPage";
-import CartItemsList from "../components/cartComponents/CartItemsList";
-import Address from "../components/cartComponents/Address";
-import Payment from "../components/cartComponents/Payment";
+import CartItemsList from "../components/cartPageComponents/CartItemsList";
+import Address from "../components/cartPageComponents/Address";
+import Payment from "../components/cartPageComponents/Payment";
 import fetchProducts from "../api/fetchProducts";
 import fetchProductById from "../api/fetchProductById";
 import OrdersPage from "../pages/OrdersPage";
