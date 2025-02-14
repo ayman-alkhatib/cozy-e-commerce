@@ -1,4 +1,4 @@
-package com.greata.orderly;
+package com.greata.cozy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

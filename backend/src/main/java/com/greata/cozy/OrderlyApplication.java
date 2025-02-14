@@ -1,4 +1,4 @@
-package com.greata.orderly;
+package com.greata.cozy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
