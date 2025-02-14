@@ -38,11 +38,6 @@ export function CartProvider({ children }) {
   }
 
   function removeFromCart(id) {
-    console.log(id);
-    console.log(
-      "from remove functio ",
-      cart.filter((el) => el.product.id !== id)
-    );
     updateCart(cart.filter((el) => el.product.id !== id));
   }
 
