@@ -1,0 +1,93 @@
+.addressPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+    width: 20rem;
+    flex: 2;
+}
+
+.addAddress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    width: 400px;
+}
+
+.addAddress h2 {
+    margin: 0.5rem;
+    color: #333;
+}
+
+.addAddress form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.addAddress input {
+    width: 100%;
+    margin: 1rem;
+    padding: .5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.addAddress button {
+    margin: 0.5rem;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.addressList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.addressItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.addressItem h3 {
+    margin: 0.5rem;
+    color: #333;
+}
+
+.addressItem p {
+    margin: 0.5rem;
+    color: #333;
+}
+
+.addressItem button {
+    margin: 0.5rem;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+}

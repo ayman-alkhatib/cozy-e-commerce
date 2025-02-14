@@ -1,0 +1,27 @@
+.productList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 10px
+}
+
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 10px auto;
+    border: 2px solid #f1f1f1;
+    width: 50%;
+
+}
+
+.search input {
+    border: none;
+    outline: none;
+    font-size: 1.2em;
+    font-weight: 500;
+    width: 100%;
+}
