@@ -19,6 +19,7 @@ function CartPage() {
 
       const orderObj = {
         email: address.email,
+        address: address.addressInput,
         items: cart.map((cartItem) => {
           return {
             productId: cartItem.product.id,
