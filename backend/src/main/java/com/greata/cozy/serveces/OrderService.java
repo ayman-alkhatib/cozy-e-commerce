@@ -33,7 +33,7 @@ public class OrderService {
     @Transactional
     public void createOrder(OrderRequestDTO orderRequest) {
         // 1. Create the order
-        Orders order = ordersDao.createOrder(new Orders(orderRequest.getEmail()));
+        Orders order = ordersDao.createOrder(new Orders(orderRequest.getEmail(),orderRequest.getAddress()));
 
         // 2. Process each order item
         for (OrderItemDTO item : orderRequest.getItems()) {
@@ -68,7 +68,9 @@ public class OrderService {
         List<OrderResponseItemDTO> items = getOrderItemsByOrderId(orders.getId());
 
         return ResponseEntity.ok(new OrderResponseDTO(
+                orders.getId(),
                 orders.getEmail(),
+                orders.getAddress(),
                 items,
                 getTotalPrice(items)));
     }
@@ -79,7 +81,9 @@ public class OrderService {
         List<OrderResponseDTO> orderResponseDTO = orders.stream().map(order ->{
             List<OrderResponseItemDTO> items = getOrderItemsByOrderId(order.getId());
            return new OrderResponseDTO(
+                   order.getId(),
                     order.getEmail(),
+                    order.getAddress(),
                     items,
                     getTotalPrice(items)
             );

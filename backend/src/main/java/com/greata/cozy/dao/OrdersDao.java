@@ -23,7 +23,9 @@ public class OrdersDao {
 
     private final RowMapper<Orders> orderRowMapper = (rs, rowNum) -> new Orders(
             rs.getLong("id"),
-            rs.getString("email"));
+            rs.getString("email"),
+            rs.getString("address")
+            );
 
     public ResponseEntity<List<Orders>> getallOrders() {
         String sql = "select * from orders";
@@ -49,12 +51,13 @@ public class OrdersDao {
     }
 
     public Orders createOrder(Orders orders) {
-        String sql = "INSERT INTO orders (email) VALUES (?)";
+        String sql = "INSERT INTO orders (email, address) VALUES (?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         int rowAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, orders.getEmail());
+            ps.setString(2, orders.getAddress());
             return ps;
         }, keyHolder);
         if (rowAffected > 0 && keyHolder.getKey() != null) {

@@ -4,10 +4,12 @@ import java.util.List;
 
 public class OrderRequestDTO {
     private String email;
+    private String address;
     private List<OrderItemDTO> items;
 
-    public OrderRequestDTO(String email, List<OrderItemDTO> items) {
+    public OrderRequestDTO(String email, String address, List<OrderItemDTO> items) {
         this.email = email;
+        this.address = address;
         this.items = items;
     }
 
@@ -17,6 +19,13 @@ public class OrderRequestDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public List<OrderItemDTO> getItems() {
