@@ -12,7 +12,7 @@ function Address() {
       "selectedAddress",
       JSON.stringify(savedAddress[selectedAddress])
     );
-  });
+  }, [selectedAddress, savedAddress]);
 
   useEffect(() => {
     const lsAddress = localStorage.getItem("address");
@@ -41,7 +41,9 @@ function Address() {
   }
 
   function handleRemoveAddress(i) {
-    setSavedAddress((s) => s.filter((_, index) => index !== i));
+    const newSavedAddress = savedAddress.filter((_, index) => index !== i);
+    setSavedAddress(newSavedAddress);
+    localStorage.setItem("address", JSON.stringify(newSavedAddress));
   }
 
   return (
