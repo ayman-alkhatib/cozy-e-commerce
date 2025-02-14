@@ -1,5 +1,12 @@
 package com.greata.cozy.serveces;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.greata.cozy.dao.OrderItemsDao;
 import com.greata.cozy.dao.OrdersDao;
 import com.greata.cozy.dao.ProductDao;
@@ -10,12 +17,6 @@ import com.greata.cozy.dto.OrderResponseItemDTO;
 import com.greata.cozy.entities.OrderItems;
 import com.greata.cozy.entities.Orders;
 import com.greata.cozy.entities.Product;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class OrderService {
@@ -44,7 +45,6 @@ public class OrderService {
         // Verify product exists and get current Product
         Product product = productDao.getById(item.getProductId());
 
-
         // Check stock
         int currentStock = product.getQuantity();
         if (currentStock < item.getQuantity()) {
@@ -52,34 +52,32 @@ public class OrderService {
         }
 
         // Update stock
-        productDao.updateProductQuantity(item.getProductId(),currentStock - item.getQuantity());
+        productDao.updateProductQuantity(item.getProductId(), currentStock - item.getQuantity());
 
         // Create order item
         orderItemsDao.createOrderItem(new OrderItems(
                 orderId,
                 item.getProductId(),
                 item.getQuantity(),
-                product.getPrice()
-        ));
+                product.getPrice()));
     }
 
     @Transactional
     public ResponseEntity<OrderResponseDTO> getOrderByEmail(String email) {
-       Orders orders= ordersDao.getOrderByEmail(email);
-       List<OrderResponseItemDTO> items = getOrderItemsByOrderId(orders.getId());
+        Orders orders = ordersDao.getOrderByEmail(email);
+        List<OrderResponseItemDTO> items = getOrderItemsByOrderId(orders.getId());
 
-      return ResponseEntity.ok(new OrderResponseDTO(
-              orders.getEmail(),
-              items,
-              getTotalPrice(items)
-      ));
+        return ResponseEntity.ok(new OrderResponseDTO(
+                orders.getEmail(),
+                items,
+                getTotalPrice(items)));
     }
 
     private List<OrderResponseItemDTO> getOrderItemsByOrderId(long orderId) {
-        List<OrderItems> orderItems =orderItemsDao.getOrderItemsByOrderId(orderId);
+        List<OrderItems> orderItems = orderItemsDao.getOrderItemsByOrderId(orderId);
         List<OrderResponseItemDTO> orderResponseItemDTOList = new ArrayList<>();
 
-        for (OrderItems item: orderItems ) {
+        for (OrderItems item : orderItems) {
             Product product = productDao.getById(item.getProductId());
             orderResponseItemDTOList.add(
                     new OrderResponseItemDTO(
@@ -87,13 +85,12 @@ public class OrderService {
                             product.getName(),
                             product.getPrice(),
                             item.getQuantity(),
-                            product.getPrice() * item.getQuantity()
-                    )
-            );
+                            product.getPrice() * item.getQuantity()));
         }
 
         return orderResponseItemDTOList;
     }
+
     private double getTotalPrice(List<OrderResponseItemDTO> items) {
         return items.stream().mapToDouble(OrderResponseItemDTO::getSubTotal).sum();
     }
