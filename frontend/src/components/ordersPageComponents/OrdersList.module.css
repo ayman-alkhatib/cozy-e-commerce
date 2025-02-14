@@ -1,7 +1,6 @@
-.ordersPage {
-    width: 100%;
+.orderList {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     gap: 50px;
 }
