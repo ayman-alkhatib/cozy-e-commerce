@@ -1,8 +1,10 @@
 package com.greata.cozy.controllers;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
+import com.greata.cozy.dto.OrderResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,5 +41,10 @@ public class OrderController {
     @GetMapping("{email}")
     public ResponseEntity<?> getOrdersByEmail(@PathVariable String email) {
         return orderService.getOrderByEmail(email);
+    }
+
+    @GetMapping("/all/{email}")
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrdersByEmail(@PathVariable String email) {
+        return orderService.getAllOrdersByEmail(email);
     }
 }

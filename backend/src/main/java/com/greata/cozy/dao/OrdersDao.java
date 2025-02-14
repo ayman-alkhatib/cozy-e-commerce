@@ -43,6 +43,11 @@ public class OrdersDao {
                 .orElseThrow(() -> new RuntimeException("No orders found"));
     }
 
+    public List<Orders> getAllOrdersByEmail(String email) {
+        String sql = "select * from orders where email = ?";
+        return jdbcTemplate.query(sql, orderRowMapper, email);
+    }
+
     public Orders createOrder(Orders orders) {
         String sql = "INSERT INTO orders (email) VALUES (?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();

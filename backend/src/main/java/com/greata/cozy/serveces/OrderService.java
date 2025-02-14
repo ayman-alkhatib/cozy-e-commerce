@@ -73,6 +73,20 @@ public class OrderService {
                 getTotalPrice(items)));
     }
 
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrdersByEmail(String email) {
+        List<Orders> orders = ordersDao.getAllOrdersByEmail(email);
+
+        List<OrderResponseDTO> orderResponseDTO = orders.stream().map(order ->{
+            List<OrderResponseItemDTO> items = getOrderItemsByOrderId(order.getId());
+           return new OrderResponseDTO(
+                    order.getEmail(),
+                    items,
+                    getTotalPrice(items)
+            );
+        }).toList();
+        return ResponseEntity.ok(orderResponseDTO);
+    }
+
     private List<OrderResponseItemDTO> getOrderItemsByOrderId(long orderId) {
         List<OrderItems> orderItems = orderItemsDao.getOrderItemsByOrderId(orderId);
         List<OrderResponseItemDTO> orderResponseItemDTOList = new ArrayList<>();
@@ -94,4 +108,6 @@ public class OrderService {
     private double getTotalPrice(List<OrderResponseItemDTO> items) {
         return items.stream().mapToDouble(OrderResponseItemDTO::getSubTotal).sum();
     }
+
+
 }
