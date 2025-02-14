@@ -1,5 +1,6 @@
 package com.greata.cozy.dao;
 import com.greata.cozy.entities.OrderItems;
+import com.greata.cozy.exceptions.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,7 +30,12 @@ public class OrderItemsDao {
 
     public List<OrderItems> getOrderItemsByOrderId(long orderId) {
         String sql = "select * from order_items where order_id = ?";
-        return jdbcTemplate.query(sql, ordersItemRowMapper, orderId);
+        List<OrderItems> list = jdbcTemplate.query(sql, ordersItemRowMapper, orderId);
+        if (list.isEmpty()) {
+            throw new ResourceNotFoundException("Order items with id " + orderId + " not found");
+        }else {
+            return list;
+        }
     }
 
     public ResponseEntity<String> createOrderItem(OrderItems orderItems) {

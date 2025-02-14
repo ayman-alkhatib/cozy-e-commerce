@@ -37,7 +37,7 @@ public class OrdersDao {
         String sql = "select * from orders where id = ?";
         Orders orders = jdbcTemplate.queryForObject(sql, orderRowMapper, id);
         if (orders == null) {
-            return ResponseEntity.notFound().build();
+            throw new RuntimeException("Order not found");
         }
         return ResponseEntity.ok(orders);
     }

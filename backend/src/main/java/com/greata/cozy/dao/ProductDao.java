@@ -1,6 +1,7 @@
 package com.greata.cozy.dao;
 
 import com.greata.cozy.entities.Product;
+import com.greata.cozy.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,11 +35,11 @@ public class ProductDao {
     }
 
     public Product getById(long id) {
-        if(isProductExist(id)) {
-             throw new RuntimeException("Product with id " + id + " not found");
-        }
         String sql = "select * from products where id = ?";
-        Product product = jdbcTemplate.queryForObject(sql, productRowMapper, id);
+        Product product = jdbcTemplate.query(sql, productRowMapper, id).stream().findFirst().orElseThrow(()->new ResourceNotFoundException("Product with id " + id + " not found"));
+        if (product == null) {
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
+        }
         return product;
 
     }
@@ -51,8 +52,11 @@ public class ProductDao {
 
     public ResponseEntity<Integer> getProductQuantity(long id) {
         String sql = "select stock_quantity from products where id = ?";
-         int ProductQuantity = jdbcTemplate.queryForObject(sql, Integer.class, id) ;
-        return ProductQuantity>0? ResponseEntity.ok(ProductQuantity) : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+         int ProductQuantity = jdbcTemplate.queryForObject(sql, Integer.class, id);
+         if(ProductQuantity<=0) {
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
+         }
+             return ResponseEntity.ok(ProductQuantity);
     }
 
     public ResponseEntity<String> updateProductQuantity(long id, int quantity) {
@@ -75,7 +79,7 @@ public class ProductDao {
     }
 
     private boolean isProductExist(long id) {
-        String sql = "select * from products where id = ?";
-        return jdbcTemplate.queryForObject(sql, productRowMapper, id) == null;
+         String sql = "select * from products where id = ?";
+        return jdbcTemplate.query(sql, productRowMapper, id).stream().findFirst().orElse(null) != null;
     }
 }
