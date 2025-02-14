@@ -1,10 +1,8 @@
 export default async function fetchProductById(id) {
     try {
         const res = await fetch(`http://localhost:8080/product/${id}`)
-        if (!res.ok) throw Error("Failed to fetch product details data. Please try again later.")
+        if (!res.ok) throw new Error(await res.text())
         const data = await res.json()
-
-
         return {
             ...data,
             images: [

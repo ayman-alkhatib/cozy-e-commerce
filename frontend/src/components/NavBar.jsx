@@ -17,7 +17,7 @@ function NavBar() {
             <Link to={routes.AdminPage}>Admin</Link>
           </li>
           <li>
-            <Link to={routes.orders}>Orders</Link>
+            <Link to={routes.orders}>My Orders</Link>
           </li>
         </ul>
 

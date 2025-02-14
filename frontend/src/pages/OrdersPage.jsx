@@ -49,7 +49,7 @@ function OrderList({ orders }) {
 function Order({ order }) {
   return (
     <div className={styles.order}>
-      <p>OrderID: {order.id}</p>
+      <p>OrderID: {order.orderId}</p>
       <p>Email: {order.email}</p>
       <p>Address: {order.address}</p>
       <div className={styles.items}>
