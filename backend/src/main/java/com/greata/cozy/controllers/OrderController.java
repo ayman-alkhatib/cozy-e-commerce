@@ -47,4 +47,10 @@ public class OrderController {
     public ResponseEntity<List<OrderResponseDTO>> getAllOrdersByEmail(@PathVariable String email) {
         return orderService.getAllOrdersByEmail(email);
     }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
+        return orderService.getOrderById(id);
+
+    }
 }

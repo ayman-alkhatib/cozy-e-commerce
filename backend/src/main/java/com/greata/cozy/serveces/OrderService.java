@@ -2,6 +2,7 @@ package com.greata.cozy.serveces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -72,9 +73,10 @@ public class OrderService {
                 orders.getEmail(),
                 orders.getAddress(),
                 items,
-                getTotalPrice(items)));
+                getTotalPrice(items)
+        ));
     }
-
+    @Transactional
     public ResponseEntity<List<OrderResponseDTO>> getAllOrdersByEmail(String email) {
         List<Orders> orders = ordersDao.getAllOrdersByEmail(email);
 
@@ -89,6 +91,20 @@ public class OrderService {
             );
         }).toList();
         return ResponseEntity.ok(orderResponseDTO);
+    }
+
+    @Transactional
+    public ResponseEntity<OrderResponseDTO> getOrderById(long orderId) {
+        Orders orders = ordersDao.getOrderById(orderId).getBody();
+        List<OrderResponseItemDTO> items = getOrderItemsByOrderId(orderId);
+
+        return  ResponseEntity.ok(new OrderResponseDTO(
+                orderId,
+                orders.getEmail(),
+                orders.getAddress(),
+                items,
+                getTotalPrice(items)
+        ));
     }
 
     private List<OrderResponseItemDTO> getOrderItemsByOrderId(long orderId) {

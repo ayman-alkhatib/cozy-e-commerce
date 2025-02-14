@@ -36,6 +36,9 @@ public class OrdersDao {
     public ResponseEntity<Orders> getOrderById(long id) {
         String sql = "select * from orders where id = ?";
         Orders orders = jdbcTemplate.queryForObject(sql, orderRowMapper, id);
+        if (orders == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(orders);
     }
 
