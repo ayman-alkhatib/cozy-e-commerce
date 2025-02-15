@@ -72,12 +72,11 @@ Cozy E-Commerce is a full-stack e-commerce application built with a Spring Boot 
 
 1. Start the MySQL server and create a database named `cozy_db`.
 
-2. Configure the database connection in `backend/src/main/resources/application.properties`:
+2. Create a .env file in the backend directory and add the following environment variables::
    ```
-   properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/cozy_db
-   spring.datasource.username=root
-   spring.datasource.password=yourpassword
+   DB_URL=jdbc:mysql://localhost:3306/cozy_db
+   DB_USERNAME=root
+   DB_PASSWORD=yourpassword
    ```
 3. Run the backend:
 
