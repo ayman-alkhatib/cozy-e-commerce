@@ -1,4 +1,4 @@
-.loginPage {
+.registerPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,12 +6,12 @@
     background: linear-gradient(120deg, #f5f6fa 60%, #e0f7fa 100%);
 }
 
-.loginForm {
+.registerForm {
     width: 350px;
     padding: 32px 24px;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -19,8 +19,15 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px);}
-    to { opacity: 1; transform: translateY(0);}
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .logo {
@@ -34,10 +41,10 @@
     justify-content: center;
     font-size: 2rem;
     color: #fff;
-    box-shadow: 0 2px 8px rgba(58,163,159,0.15);
+    box-shadow: 0 2px 8px rgba(58, 163, 159, 0.15);
 }
 
-.loginForm h2 {
+.registerForm h2 {
     margin-bottom: 16px;
     text-align: center;
     color: #333;
@@ -65,7 +72,7 @@
     outline: none;
     transition: border 0.2s, box-shadow 0.2s;
     background: #f8fafd;
-    box-shadow: 0 1px 2px rgba(58,163,159,0.03);
+    box-shadow: 0 1px 2px rgba(58, 163, 159, 0.03);
 }
 
 .formGroup input:focus {
@@ -85,29 +92,12 @@ button {
     cursor: pointer;
     transition: background 0.2s, box-shadow 0.2s;
     margin-top: 8px;
-    box-shadow: 0 2px 8px rgba(58,163,159,0.08);
+    box-shadow: 0 2px 8px rgba(58, 163, 159, 0.08);
 }
 
 button:hover {
     background: var(--main-color-dark);
-    box-shadow: 0 4px 16px rgba(58,163,159,0.13);
-}
-
-.forgot {
-    text-align: right;
-    margin-bottom: 8px;
-}
-
-.forgot a {
-    color: var(--main-color);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
-}
-
-.forgot a:hover {
-    color: var(--main-color-dark);
-    text-decoration: underline;
+    box-shadow: 0 4px 16px rgba(58, 163, 159, 0.13);
 }
 
 .divider {
@@ -120,7 +110,8 @@ button:hover {
     letter-spacing: 1px;
 }
 
-.divider::before, .divider::after {
+.divider::before,
+.divider::after {
     content: '';
     flex: 1;
     border-bottom: 1px solid #e0e0e0;
@@ -129,13 +120,20 @@ button:hover {
 .divider:not(:empty)::before {
     margin-right: .75em;
 }
+
 .divider:not(:empty)::after {
     margin-left: .75em;
 }
 
 .toggleButton {
-    text-align: center;
-    margin-top: 10px;
+    background: none;
+    border: none;
+    color: var(--main-color);
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0;
+    font-size: 1em;
+    transition: color 0.2s;
 }
 
 .toggleButton:hover {
@@ -146,8 +144,3 @@ button:hover {
     color: var(--main-color);
     text-decoration: none;
 }
-
-.toggleLink:hover {
-    text-decoration: underline;
-}
-
