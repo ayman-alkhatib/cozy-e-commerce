@@ -31,7 +31,6 @@ function RegisterPage() {
             onSubmit={(e) => {
               handleRegister(e);
             }}
-            id="registerForm"
           >
             {errors.length > 0 && (
               <div className={styles.error}>
