@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(120deg, #f5f6fa 60%, #e0f7fa 100%);
 }
 
 .registerForm {
@@ -80,7 +79,7 @@
     box-shadow: 0 0 0 2px #3aa39f22;
 }
 
-button {
+button[type="submit"] {
     width: 100%;
     padding: 12px 0;
     background: var(--main-color);
@@ -95,7 +94,7 @@ button {
     box-shadow: 0 2px 8px rgba(58, 163, 159, 0.08);
 }
 
-button:hover {
+button[type="submit"]:hover {
     background: var(--main-color-dark);
     box-shadow: 0 4px 16px rgba(58, 163, 159, 0.13);
 }
@@ -126,21 +125,39 @@ button:hover {
 }
 
 .toggleButton {
-    background: none;
-    border: none;
-    color: var(--main-color);
-    cursor: pointer;
-    font-weight: 600;
-    padding: 0;
-    font-size: 1em;
-    transition: color 0.2s;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .toggleButton:hover {
     color: var(--main-color-dark);
 }
 
+.toggleButton button {
+    background-color: transparent;
+    border: none;
+    color: var(--main-color);
+    display: inline;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.toggleButton button:hover {
+    color: var(--main-color-dark);
+    text-decoration: underline;
+}
+
 .toggleLink {
     color: var(--main-color);
-    text-decoration: none;
+}
+
+.error {
+    background-color: #ffeaea;
+    color: #d32f2f;
+    border: 1px solid #f5c2c7;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    text-align: left;
 }

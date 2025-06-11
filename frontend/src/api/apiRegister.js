@@ -1,6 +1,6 @@
-export default async function login(email, password) {
+export default async function apiRegister(email, password) {
   try {
-    const res = await fetch(`http://localhost:8080/auth/login`, {
+    const res = await fetch(`http://localhost:8080/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -12,10 +12,6 @@ export default async function login(email, password) {
     });
     if (!res.ok) throw new Error(await res.text());
     const data = await res.json();
-
-    // Store the token in localStorage
-    console.log(data)
-    localStorage.setItem("access_token", data.access_token);
 
     return data;
   } catch (error) {

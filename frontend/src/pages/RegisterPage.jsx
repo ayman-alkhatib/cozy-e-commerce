@@ -1,12 +1,45 @@
-import styles from './RegisterPage.module.css'
+import { useState } from "react";
+import styles from "./RegisterPage.module.css";
+import { useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 function RegisterPage() {
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
+  const { register } = useAuth();
+
+  async function handleRegister(e) {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    setErrors([]);
+    try {
+      await register(email, password);
+      navigate("/products");
+    } catch (error) {
+      setErrors([error.message]);
+    }
+  }
+
   return (
     <div className="container">
       <div className={styles.registerPage}>
         <div className={styles.registerForm}>
           <h2>Sign Up</h2>
-          <form>
+          <form
+            onSubmit={(e) => {
+              handleRegister(e);
+            }}
+            id="registerForm"
+          >
+            {errors.length > 0 && (
+              <div className={styles.error}>
+                {errors.map((err, idx) => (
+                  <div key={idx}>{err}</div>
+                ))}
+              </div>
+            )}
             <div className={styles.formGroup}>
               <label htmlFor="email">Email</label>
               <input type="email" id="email" />
@@ -22,21 +55,18 @@ function RegisterPage() {
             <button type="submit">Sign Up</button>
             <div className={styles.divider}>or</div>
             <div className={styles.toggleButton}>
-              <a
-                href="/login"
-                // style={{
-                //   background: "none",
-                //   border: "none",
-                //   color: "var(--main-color)",
-                //   cursor: "pointer",
-                //   fontWeight: 600,
-                //   padding: 0,
-                //   textDecoration: "none",
-                // }}
-                className={styles.toggleLink}
+              <span className={styles.toggleLink}>
+                Already have an account?{" "}
+              </span>
+              <button
+                className={styles.toggleButton}
+                onClick={() => {
+                  navigate("/login");
+                }}
+                type="button"
               >
-                Already have an account? <b>Sign In</b>
-              </a>
+                login
+              </button>
             </div>
           </form>
         </div>

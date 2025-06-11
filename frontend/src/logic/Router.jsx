@@ -1,4 +1,3 @@
-import React from "react";
 import ProductListPage from "../pages/ProductListPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
@@ -6,6 +5,7 @@ import AdminPage from "../pages/AdminPage";
 import {
   createHashRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
 } from "react-router";
 import NavBar from "../components/NavBar";
@@ -23,32 +23,45 @@ export const routes = {
   ProductDetailsPage: "/product",
   CartPage: "/cart/items",
   LoginPage: "/login",
+  RegisterPage: "/register",
   AdminPage: "/admin",
   orders: "/orders",
 };
 
-export const router = createHashRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<NavBar />}>
-      <Route
-        path="/products"
-        element={<ProductListPage />}
-        loader={fetchProducts}
-      />
-      <Route
-        path="/product/:id"
-        element={<ProductDetailsPage />}
-        loader={({ params }) => fetchProductById(params.id)}
-      />
-      <Route path="cart" element={<CartPage />}>
-        <Route path="items" element={<CartItemsList />} />
-        <Route path="address" element={<Address />} />
-        <Route path="payment" element={<Payment />} />
-      </Route>
-      <Route path="login" element={<LoginPage />} />
-      <Route path="register" element={<RegisterPage />} />
-      <Route path="/admin" element={<AdminPage />} />
-      <Route path="/orders" element={<OrdersPage />} />
+export function createAppRouter(isAuthenticated) {
+  return createHashRouter(
+    createRoutesFromElements(isAuthenticated ? privateRoutes : publicRoutes)
+  );
+}
+
+const publicRoutes = (
+  <Route path="/" element={<NavBar />}>
+    <Route path="/login" element={<LoginPage />} />
+    <Route path="/register" element={<RegisterPage />} />
+    <Route path="*" element={<Navigate to={"/login"} />} />
+  </Route>
+);
+
+const privateRoutes = (
+  <Route path="/" element={<NavBar />}>
+    <Route
+      path="/products"
+      element={<ProductListPage />}
+      loader={fetchProducts}
+    />
+    <Route
+      path="/product/:id"
+      element={<ProductDetailsPage />}
+      loader={({ params }) => fetchProductById(params.id)}
+    />
+    <Route path="/cart" element={<CartPage />}>
+      <Route path="items" element={<CartItemsList />} />
+      <Route path="address" element={<Address />} />
+      <Route path="payment" element={<Payment />} />
     </Route>
-  )
+    <Route path="/login" element={<Navigate to={"/products"} />} />
+    <Route path="/register" element={<Navigate to={"/products"} />} />
+    <Route path="/admin" element={<AdminPage />} />
+    <Route path="/orders" element={<OrdersPage />} />
+  </Route>
 );
