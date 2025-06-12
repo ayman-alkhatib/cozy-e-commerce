@@ -36,6 +36,7 @@ export function createAppRouter(isAuthenticated) {
 
 const publicRoutes = (
   <Route path="/" element={<NavBar />}>
+    <Route index element={<Navigate to="/login" />} />
     <Route path="/login" element={<LoginPage />} />
     <Route path="/register" element={<RegisterPage />} />
     <Route path="*" element={<Navigate to={"/login"} />} />
@@ -44,6 +45,7 @@ const publicRoutes = (
 
 const privateRoutes = (
   <Route path="/" element={<NavBar />}>
+    <Route index element={<Navigate to="/products" />} />
     <Route
       path="/products"
       element={<ProductListPage />}

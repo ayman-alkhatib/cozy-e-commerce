@@ -1,8 +1,20 @@
 package com.greata.cozy.entities;
 
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 public class User {
     private long id;
+    @Email(message = "you must write a valid email")
     private String email;
+
+    @NotBlank(message = "Password cannot be empty")
+    @Pattern(
+            regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{14,25}$",
+            message = "Password must contain at least one uppercase letter, one digit, and one special character, and be between 14 and 25 characters long"
+    )
     private String password;
     private String role;
 

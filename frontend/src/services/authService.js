@@ -29,6 +29,9 @@ export function authService() {
       localStorage.setItem("access_token", data.access_token);
       return data;
     } catch (error) {
+      if (error.message === '{"password":"Password must contain at least one uppercase letter, one digit, and one special character, and be between 14 and 25 characters long"}') {
+        throw new Error("Password must contain at least one uppercase letter, one digit, and one special character, and be between 14 and 25 characters long.");
+      }
       throw error;
     }
   }
