@@ -1,7 +1,7 @@
 export default async function fetchAllOrderByEmail(email) {
   if (!email) return [];
   try {
-    const res = await fetch(`http://localhost:8080/orders/all/${email}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/orders/all/${email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

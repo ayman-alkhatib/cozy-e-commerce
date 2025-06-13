@@ -1,7 +1,7 @@
 export default async function fetchProducts() {
   const token = localStorage.getItem("access_token");
   try {
-    const res = await fetch(`http://localhost:8080/product/all`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/product/all`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

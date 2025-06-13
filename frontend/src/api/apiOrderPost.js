@@ -1,8 +1,8 @@
-export default async function orderPost(order) {
+export default async function apiOrderPost(order) {
   const token = localStorage.getItem("access_token");
 
   try {
-    const res = await fetch(`http://localhost:8080/orders`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
