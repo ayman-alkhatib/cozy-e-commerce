@@ -4,19 +4,20 @@ import java.util.List;
 
 public class OrderResponseDTO {
     private long orderId;
-    private String email;
+    private long userId;
     private String address;
     private List<OrderResponseItemDTO> items;
     private double total;
+    private String status;
 
-    public OrderResponseDTO(long orderId,String email, String address,List<OrderResponseItemDTO> items, double total) {
-       this.orderId= orderId;
-        this.email = email;
+    public OrderResponseDTO(long orderId, long userId, String address, List<OrderResponseItemDTO> items, double total, String status) {
+        this.orderId = orderId;
+        this.userId = userId;
         this.address = address;
         this.items = items;
         this.total = total;
+        this.status = status;
     }
-
     public long getOrderId() {
         return orderId;
     }
@@ -24,12 +25,12 @@ public class OrderResponseDTO {
         this.orderId = orderId;
     }
 
-    public String getEmail() {
-        return email;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getAddress() {
@@ -54,4 +55,10 @@ public class OrderResponseDTO {
         this.total = total;
     }
 
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

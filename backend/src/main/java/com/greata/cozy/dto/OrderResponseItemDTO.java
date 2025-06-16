@@ -39,7 +39,7 @@ public class OrderResponseItemDTO {
         this.price = price;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 

@@ -46,8 +46,10 @@ public class SecurityConfig {
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests.requestMatchers("/auth/register","/auth/login").permitAll()
-                        .requestMatchers("/auth/delete","/auth/update-password").hasAnyRole("USER", "ADMIN")
+                authorizeRequests
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/auth/delete", "/auth/update-password").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/orders/delivered/**", "/orders/cancel/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()
             );
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

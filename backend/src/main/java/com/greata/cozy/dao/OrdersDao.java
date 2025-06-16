@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+import com.greata.cozy.exceptions.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,9 +24,10 @@ public class OrdersDao {
 
     private final RowMapper<Orders> orderRowMapper = (rs, rowNum) -> new Orders(
             rs.getLong("id"),
-            rs.getString("email"),
-            rs.getString("address")
-            );
+            rs.getLong("user_id"),
+            rs.getString("address"),
+            rs.getString("status")
+    );
 
     public ResponseEntity<List<Orders>> getallOrders() {
         String sql = "select * from orders";
@@ -33,33 +35,18 @@ public class OrdersDao {
         return ResponseEntity.ok(orders);
     }
 
-    public ResponseEntity<Orders> getOrderById(long id) {
-        String sql = "select * from orders where id = ?";
-        Orders orders = jdbcTemplate.queryForObject(sql, orderRowMapper, id);
-        if (orders == null) {
-            throw new RuntimeException("Order not found");
-        }
-        return ResponseEntity.ok(orders);
-    }
-
-    public Orders getOrderByEmail(String email) {
-        String sql = "select * from orders where email = ?";
-        return jdbcTemplate.query(sql, orderRowMapper, email).stream().findFirst()
-                .orElseThrow(() -> new RuntimeException("No orders found"));
-    }
-
-    public List<Orders> getAllOrdersByEmail(String email) {
-        String sql = "select * from orders where email = ?";
-        return jdbcTemplate.query(sql, orderRowMapper, email);
+    public List<Orders> getAllOrdersByUserId(long userId) {
+        String sql = "select * from orders where user_id = ? and status != 'PENDING'";
+        return jdbcTemplate.query(sql, orderRowMapper, userId);
     }
 
     public Orders createOrder(Orders orders) {
-        String sql = "INSERT INTO orders (email, address) VALUES (?,?)";
+        String sql = "INSERT INTO orders (user_id, address) VALUES (?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         int rowAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, orders.getEmail());
+            ps.setLong(1, orders.getUserId());
             ps.setString(2, orders.getAddress());
             return ps;
         }, keyHolder);
@@ -71,16 +58,20 @@ public class OrdersDao {
         }
     }
 
-    public ResponseEntity<Orders> updateOrder(Orders order) {
-        String sql = "update orders set email = ? where id = ?";
-        jdbcTemplate.update(sql, order.getEmail(), order.getId());
-        return ResponseEntity.ok(order);
-    }
+  public Orders getOrderById(long id) {
+      String sql = "select * from orders where id = ?";
+      try {
+          return jdbcTemplate.queryForObject(sql, orderRowMapper, id);
+      } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+          throw new ResourceNotFoundException("Order not found");
+      }
+  }
 
-    public ResponseEntity<Orders> deleteOrder(long id) {
-        String sql = "delete from orders where id = ?";
-        jdbcTemplate.update(sql, id);
-        return ResponseEntity.ok(null);
-    }
+public ResponseEntity<Orders> updateOrder(Orders order) {
+    String sql = "UPDATE orders SET user_id = ?, address = ?, status = ? WHERE id = ?";
+    jdbcTemplate.update(sql, order.getUserId(), order.getAddress(), order.getStatus(), order.getId());
+    return ResponseEntity.ok(order);
+}
+
 
 }
