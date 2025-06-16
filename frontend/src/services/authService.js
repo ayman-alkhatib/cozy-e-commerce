@@ -8,6 +8,10 @@ export function authService() {
 
       // Store the token in localStorage
       localStorage.setItem("access_token", data.access_token);
+      // Set the expiration time for the token
+      const expiresAt = Date.now() + data.expires_in * 1000;
+      localStorage.setItem("tokenExpiresAt", expiresAt);
+
       return data;
     } catch (error) {
       if (error.message === "Bad credentials") {
@@ -19,6 +23,7 @@ export function authService() {
 
   async function logout() {
     localStorage.removeItem("access_token");
+    localStorage.removeItem("tokenExpiresAt");
   }
 
   async function register(email, password) {
@@ -27,10 +32,18 @@ export function authService() {
 
       // Store the token in localStorage
       localStorage.setItem("access_token", data.access_token);
+      // Set the expiration time for the token
+      const expiresAt = Date.now() + data.expires_in * 1000;
+      localStorage.setItem("tokenExpiresAt", expiresAt);
       return data;
     } catch (error) {
-      if (error.message === '{"password":"Password must contain at least one uppercase letter, one digit, and one special character, and be between 14 and 25 characters long"}') {
-        throw new Error("Password must contain at least one uppercase letter, one digit, and one special character, and be between 14 and 25 characters long.");
+      if (
+        error.message ===
+        '{"password":"Password must contain at least one uppercase letter, one digit, and one special character, and be between 14 and 25 characters long"}'
+      ) {
+        throw new Error(
+          "Password must contain at least one uppercase letter, one digit, and one special character, and be between 14 and 25 characters long."
+        );
       }
       throw error;
     }
