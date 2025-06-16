@@ -1,8 +1,9 @@
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, Outlet, useNavigate, useLocation } from "react-router";
 import { routes } from "../logic/Router";
 import styles from "./NavBar.module.css";
 import useAuth from "../hooks/useAuth";
 function NavBar() {
+  const location = useLocation();
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -10,33 +11,29 @@ function NavBar() {
     logout();
     navigate(routes.LoginPage);
   };
-  if(!isAuthenticated) {
-    return (<>
-       <div className={styles.navbar}>
-        <span className={styles.logo}>Cozy®</span>
-      </div>
-    <Outlet/>
-     </>
-  ); // Don't render NavBar if not authenticated
-  }
+ 
   return (
     <>
       <div className={styles.navbar}>
         <span className={styles.logo}>Cozy®</span>
-        <ul className={styles.navbarList}>
-          <li className={styles.active}>
-            <Link to={routes.ProductListPage}>Products</Link>
-          </li>
-          <li>
-            <Link to={routes.CartPage}>Cart</Link>
-          </li>
-          <li>
-            <Link to={routes.orders}>My Orders</Link>
-          </li>
-        </ul>
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            Logout
-          </button>
+        {isAuthenticated && (
+          <>
+            <ul className={styles.navbarList}>
+              <li className={location.pathname === routes.ProductListPage ? styles.active : ''}>
+                <Link to={routes.ProductListPage}>Products</Link>
+              </li>
+              <li className={location.pathname === routes.CartPage ? styles.active : ''}>
+                <Link to={routes.CartPage}>Cart</Link>
+              </li>
+              <li className={location.pathname === routes.orders ? styles.active : ''}>
+                <Link to={routes.orders}>My Orders</Link>
+              </li>
+            </ul>
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Logout
+            </button>
+          </>
+        )}
       </div>
       <Outlet />
     </>

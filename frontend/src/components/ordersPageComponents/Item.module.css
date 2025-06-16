@@ -1,6 +1,33 @@
 .item {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1.0rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 1rem;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.itemName {
+  flex: 2;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.itemQty {
+  flex: 1;
+  color: #64748b;
+}
+
+.itemPrice {
+  flex: 1;
+  color: #475569;
+}
+
+.itemSubTotal {
+  flex: 2;
+  text-align: right;
 }

@@ -11,7 +11,9 @@ export default async function apiOrderPost(order) {
       body: JSON.stringify(order),
     });
     if (!res.ok) throw new Error(await res.text());
-    return res;
+
+    const data = await res.json();
+    return data;
   } catch (error) {
     throw error;
   }

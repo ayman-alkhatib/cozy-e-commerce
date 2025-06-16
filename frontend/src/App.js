@@ -7,7 +7,7 @@ import { AuthProvider } from "./logic/authContext";
 
 function App() {
   const { isAuthenticated } = useAuth();
-  const [router, setRouter] = useState(createAppRouter(false));
+  const [router, setRouter] = useState(createAppRouter(isAuthenticated));
 
   useEffect(() => {
     const router = createAppRouter(isAuthenticated);

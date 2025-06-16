@@ -13,6 +13,11 @@ function RegisterPage() {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const confirmPassword = e.target.confirm.value;
+    if (password !== confirmPassword) {
+      setErrors(["Passwords do not match"]);
+      return;
+    }
     setErrors([]);
     try {
       await register(email, password);

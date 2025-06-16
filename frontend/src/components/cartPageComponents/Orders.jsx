@@ -3,19 +3,18 @@ import OrderItem from "./OrderItem";
 import OrderItemsDetails from "./OrderItemsDetails";
 import styles from "./Orders.module.css";
 import { useCart } from "../../logic/CartContext";
-import orderPost from "../../api/orderPost";
+import orderService from "../../services/orderService";
 function Orders() {
-  const { cart, updateCart } = useCart();
+  const { cart } = useCart();
 
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
   async function handleCheckout() {
-    if (path === "/cart/address") navigate("/cart/payment");
 
     if (path === "/cart/items") navigate("/cart/address");
 
-    if (path === "/cart/payment") {
+    if (path === "/cart/address") {
       const address = JSON.parse(localStorage.getItem("selectedAddress"));
 
       const orderObj = {
@@ -28,14 +27,7 @@ function Orders() {
           };
         }),
       };
-      const res = await orderPost(orderObj);
-      if (res.ok) {
-        updateCart([]);
-        alert("Order placed successfully!");
-        navigate("/products");
-      } else {
-        alert("something went wrong");
-      }
+     await orderService().orderPost(orderObj)
     }
   }
 

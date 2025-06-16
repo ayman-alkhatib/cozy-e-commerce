@@ -3,6 +3,7 @@ import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
 import AdminPage from "../pages/AdminPage";
 import {
+  createBrowserRouter,
   createHashRouter,
   createRoutesFromElements,
   Navigate,
@@ -29,7 +30,7 @@ export const routes = {
 };
 
 export function createAppRouter(isAuthenticated) {
-  return createHashRouter(
+  return createBrowserRouter(
     createRoutesFromElements(isAuthenticated ? privateRoutes : publicRoutes)
   );
 }
@@ -45,7 +46,6 @@ const publicRoutes = (
 
 const privateRoutes = (
   <Route path="/" element={<NavBar />}>
-    <Route index element={<Navigate to="/products" />} />
     <Route
       path="/products"
       element={<ProductListPage />}
@@ -64,6 +64,6 @@ const privateRoutes = (
     <Route path="/login" element={<Navigate to={"/products"} />} />
     <Route path="/register" element={<Navigate to={"/products"} />} />
     <Route path="/admin" element={<AdminPage />} />
-    <Route path="/orders" element={<OrdersPage />} />
+    <Route path="/orders/:session_id?" element={<OrdersPage />} />
   </Route>
 );
