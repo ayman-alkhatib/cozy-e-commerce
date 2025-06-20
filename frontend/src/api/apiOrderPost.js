@@ -15,6 +15,6 @@ export default async function apiOrderPost(order) {
     const data = await res.json();
     return data;
   } catch (error) {
-    throw error;
+    throw new Error(`Order creation failed: ${error.message}`);
   }
 }

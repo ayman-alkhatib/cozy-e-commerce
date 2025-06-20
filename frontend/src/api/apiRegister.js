@@ -15,6 +15,6 @@ export default async function apiRegister(email, password) {
 
     return data;
   } catch (error) {
-    throw error;
+    throw new Error(`Registration failed: ${error.message}`);
   }
 }

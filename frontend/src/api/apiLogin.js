@@ -14,11 +14,10 @@ export default async function apiLogin(email, password) {
     const data = await res.json();
 
     // Store the token in localStorage
-    console.log(data)
     localStorage.setItem("access_token", data.access_token);
 
     return data;
   } catch (error) {
-    throw error;
+    throw new Error(`Login failed: ${error.message}`);
   }
 }

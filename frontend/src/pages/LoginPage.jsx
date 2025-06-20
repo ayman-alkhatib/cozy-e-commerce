@@ -3,6 +3,9 @@ import styles from "./LoginPage.module.css";
 import { useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{14,25}$/;
+
 function LoginPage() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
@@ -10,20 +13,40 @@ function LoginPage() {
 
   async function handleLogin(e) {
     e.preventDefault();
-
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    // Clear previous errors
     setErrors([]);
+
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value;
+
+    if (!email) {
+      setErrors((prevErrors) => [...prevErrors, "Email is required."]);
+      return;
+    } else if (!emailRegex.test(email)) {
+      setErrors((prevErrors) => [...prevErrors, "Please enter a valid email address."]);
+      return;
+    }
+
+    if (!password) {
+      setErrors((prevErrors) => [...prevErrors, "Password is required."]);
+      return;
+    } else if (!passwordRegex.test(password)) {
+      setErrors((prevErrors) => [
+        ...prevErrors,
+        "Password must be between 14 and 25 characters long, contain at least one uppercase letter, one digit, and one special character.",
+      ]);
+      return;
+    }
+
+   
+
     try {
       await login(email, password);
-      navigate("/products")
+      navigate("/products");
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       setErrors([error.message]);
     }
-    console.log("Login button clicked", e);
-    console.log("email: ", e.target.email.value);
-    console.log("password: ", e.target.password.value);
   }
 
   return (

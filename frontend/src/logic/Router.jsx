@@ -59,11 +59,9 @@ const privateRoutes = (
     <Route path="/cart" element={<CartPage />}>
       <Route path="items" element={<CartItemsList />} />
       <Route path="address" element={<Address />} />
-      <Route path="payment" element={<Payment />} />
     </Route>
     <Route path="/login" element={<Navigate to={"/products"} />} />
     <Route path="/register" element={<Navigate to={"/products"} />} />
-    <Route path="/admin" element={<AdminPage />} />
     <Route path="/orders/:session_id?" element={<OrdersPage />} />
   </Route>
 );

@@ -22,6 +22,6 @@ export default async function fetchProductById(id) {
       ],
     };
   } catch (error) {
-    throw error;
+    throw new Error(`Failed to fetch product: ${error.message}`);
   }
 }

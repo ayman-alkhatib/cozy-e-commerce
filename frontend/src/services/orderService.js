@@ -8,7 +8,6 @@ function orderService() {
     const paymentLink = data.checkoutUrl;
     localStorage.setItem("order_id", data.orderId);
     window.open(paymentLink, "_blank");
-
     return data;
   }
 

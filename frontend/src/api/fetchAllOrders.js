@@ -11,6 +11,6 @@ export default async function fetchAllOrders() {
     const data = await res.json();
     return data;
   } catch (error) {
-    throw error;
+    throw new Error(`Failed to fetch orders: ${error.message}`);
   }
 }

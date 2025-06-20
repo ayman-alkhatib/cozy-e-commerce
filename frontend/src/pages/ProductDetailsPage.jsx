@@ -89,11 +89,11 @@ function ProductDetailsPage() {
         </section>
         <section className={styles.productImages}>
           <div className={styles.mainImage}>
-            <img src={product.thumbnail} alt={product.name} />
+            <img loading="lazy" src={product.thumbnail} alt={product.name} />
           </div>
           <div className={styles.moreImages}>
             {product.images.map((image, index) => (
-              <img key={index} src={image} alt={product.name} />
+              <img key={index} loading="lazy" src={image} alt={product.name} />
             ))}
           </div>
         </section>

@@ -35,7 +35,7 @@ function ProductCard({ product }) {
       style={outOfStock ? { cursor: "default" } : {}}
     >
       <div className={styles.productImage} onClick={handleClick}>
-        <img src={product.thumbnail} alt="product" />
+        <img loading="lazy" src={product.thumbnail} alt="product" />
       </div>
       <div className={styles.productInfo} onClick={handleClick}>
         <h3>{product.name}</h3>

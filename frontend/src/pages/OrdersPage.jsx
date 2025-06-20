@@ -1,18 +1,20 @@
 import { useSearchParams } from "react-router";
 import fetchAllOrders from "../api/fetchAllOrders";
 import OrdersList from "../components/ordersPageComponents/OrdersList";
-import SearchBar from "../components/SearchBar";
+import FilterField from "../components/ordersPageComponents/FilterField";
 import styles from "./OrdersPage.module.css";
 import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import orderService from "../services/orderService";
 import { useCart } from "../logic/CartContext";
+import SearchBar from "../components/SearchBar";
 
 function OrdersPage() {
   const [orders, setOrders] = useState([]);
-  const [searchParams] = useSearchParams();
   const [orderStatus, setOrderStatus] = useState("no-session");
   const [showModal, setShowModal] = useState(false);
+  const [filterFields, setFilterFields] = useState([]);
+  const [searchParams] = useSearchParams();
   const { confirmPayment } = orderService();
   const { updateCart } = useCart();
 
@@ -27,15 +29,18 @@ function OrdersPage() {
         if (data.status === "PAID") {
           setOrderStatus("PAID");
           setShowModal(true);
-          // remove the session_id from the URL
-          searchParams.delete("session_id");
-          // update the cart in the CartContext
           updateCart([]);
         }
       })
       .catch(() => {
         setOrderStatus("failed");
         setShowModal(true);
+      })
+      .finally(() => {
+        // Reset the session_id in the URL after processing
+        const url = new URL(window.location);
+        url.searchParams.delete("session_id");
+        window.history.replaceState({}, "", url);
       });
   }, [searchParams]);
 
@@ -49,23 +54,52 @@ function OrdersPage() {
   }, []);
 
   async function handleSearch(searchTerm) {
+    const ordersData = await fetchAllOrders();
     if (!searchTerm) {
-      const orderData = await fetchAllOrders();
-
-      setOrders(orderData);
+      setOrders(ordersData);
       return;
     }
-    const filteredOrders = orders.filter((order) =>
-      order.id.includes(searchTerm)
-    );
+    const filteredOrders = ordersData.filter((order) => {
+      return order.orderId == searchTerm;
+    });
     setOrders(filteredOrders);
+  }
+
+  async function filterOrders(newStatusFilter) {
+    const orderData = await fetchAllOrders();
+    let filteredOrders = orderData;
+
+    if (newStatusFilter && newStatusFilter.length > 0) {
+      filteredOrders = filteredOrders.filter((order) =>
+        newStatusFilter.includes(order.status)
+      );
+    }
+    setOrders(filteredOrders);
+  }
+
+  function handleFilterChange(statusArr) {
+    setFilterFields(statusArr);
+    filterOrders(statusArr);
   }
 
   return (
     <div className="container">
       <div className={styles.ordersPage}>
         <SearchBar handleSearch={handleSearch} />
-        <OrdersList orders={orders} />
+        <FilterField
+          value={filterFields}
+          onChange={handleFilterChange}
+          options={[
+            { value: "PAID", label: "Paid" },
+            { value: "DELIVERED", label: "Delivered" },
+            { value: "CANCELLED", label: "Cancelled" },
+          ]}
+        />
+        {orders.length === 0 ? (
+          <div className={styles.noOrders}>No orders found.</div>
+        ) : (
+          <OrdersList orders={orders} />
+        )}
         <Modal show={showModal} onClose={() => setShowModal(false)}>
           {orderStatus === "PAID" && (
             <div>
