@@ -2,13 +2,13 @@ package com.greata.cozy.dao;
 
 import com.greata.cozy.entities.Product;
 import com.greata.cozy.exceptions.ResourceNotFoundException;
+import java.util.List;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class ProductDao {
@@ -31,7 +31,7 @@ public class ProductDao {
     public ResponseEntity<List<Product>> getAllProducts() {
         String sql = "select * from products";
         List<Product> products = jdbcTemplate.query(sql, productRowMapper);
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok().cacheControl(CacheControl.maxAge(1, java.util.concurrent.TimeUnit.MINUTES).cachePublic()).body(products);
     }
 
     public Product getById(long id) {

@@ -34,7 +34,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Map<String, String> createOrder(OrderRequestDTO orderRequest, long userId) throws Exception {
+    public ResponseEntity<?> createOrder(OrderRequestDTO orderRequest, long userId) {
 
         // 1. Create the order
         Orders order = ordersDao.createOrder(new Orders(userId, orderRequest.getAddress(), "PENDING"));
@@ -45,14 +45,21 @@ public class OrderService {
         }
 
         // 3. Create Stripe Checkout Session and return the payment URL
-        
-        List<OrderResponseItemDTO> items = getOrderItemsByOrderId(order.getId());
-        String checkoutUrl = paymentService.createCheckoutSession(order.getId(), items);
+        try {
+            List<OrderResponseItemDTO> items = getOrderItemsByOrderId(order.getId());
+            String checkoutUrl = paymentService.createCheckoutSession(order.getId(), items);
+            return ResponseEntity.ok(
+                    Map.of(
+                            "orderId", String.valueOf(order.getId()),
+                            "checkoutUrl", checkoutUrl
+                    )
+            );
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to create payment session");
+        }
 
-        return Map.of(
-            "orderId", String.valueOf(order.getId()),
-            "checkoutUrl", checkoutUrl
-        );
+
+
     }
 
     @Transactional

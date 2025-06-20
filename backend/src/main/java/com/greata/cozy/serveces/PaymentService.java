@@ -20,7 +20,7 @@ public class PaymentService {
         Stripe.apiKey = stripeSecretKey;
     }
 
-    public String createCheckoutSession(long orderId, List<OrderResponseItemDTO> items) throws Exception {
+    public String createCheckoutSession(long orderId, List<OrderResponseItemDTO> items) {
 
         // create line items for the Stripe Checkout Session
         List<SessionCreateParams.LineItem> lineItems = items.stream()
@@ -51,8 +51,12 @@ public class PaymentService {
                 .build();
 
         // Create the Stripe Checkout Session
-        Session session = Session.create(params);
-        return session.getUrl();
+        try{
+           Session session = Session.create(params);
+           return session.getUrl();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create Stripe Checkout Session: " + e.getMessage());
+        }
     }
 
     public Session retrieveSession(String sessionId) throws Exception {

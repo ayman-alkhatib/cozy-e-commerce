@@ -26,23 +26,13 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO, Authentication authentication) {
-        try {
             long userId = userDao.getUserIdFromAuth(authentication);
-            Map<String, String> paymentSession = orderService.createOrder(
+            return orderService.createOrder(
                     orderRequestDTO,
                     userId
             );
-
-            // Return  response with a message
-            return ResponseEntity.ok(paymentSession);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
     }
 
-    // endpoint for admin to mark the order as delivered
     @PutMapping("/delivered/{orderId}")
     public ResponseEntity<String> markOrderAsDelivered(@PathVariable long orderId) {
         return  orderService.markOrderAsDelivered(orderId);
