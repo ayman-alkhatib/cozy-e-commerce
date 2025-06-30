@@ -12,11 +12,8 @@ function Orders() {
 
   async function handleCheckout() {
 
-    if (path === "/cart/items") navigate("/cart/address");
-
-    if (path === "/cart/address") {
       const address = JSON.parse(localStorage.getItem("selectedAddress"));
-
+      
       const orderObj = {
         email: address.email,
         address: address.addressInput,
@@ -28,7 +25,10 @@ function Orders() {
         }),
       };
      await orderService().orderPost(orderObj)
-    }
+  }
+
+  async function handleConfirm() {
+    navigate("/cart/address");
   }
 
   return (
@@ -49,7 +49,13 @@ function Orders() {
         <OrderItem title={"Estimated Tax"} value={"$0.00"} />
         <OrderItem title={"Estimated Delivery by"} value={"Wed. 10th March"} />
       </div>
-      <button onClick={handleCheckout}>checkout</button>
+      <button onClick={()=>{
+        if (path === "/cart/address") {
+          handleCheckout();
+        } else {
+          handleConfirm();
+        }
+      }}>checkout</button>
     </section>
   );
 }

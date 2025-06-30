@@ -57,9 +57,6 @@ public class OrderService {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Failed to create payment session");
         }
-
-
-
     }
 
     @Transactional
