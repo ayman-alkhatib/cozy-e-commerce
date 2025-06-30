@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useSearchParams } from "react-router";
 import fetchAllOrders from "../api/fetchAllOrders";
 import OrdersList from "../components/ordersPageComponents/OrdersList";
@@ -23,27 +24,29 @@ function OrdersPage() {
     if (!sessionId) {
       setOrderStatus("no-session");
       return;
+    }else{
+      handleConfirmPayment(sessionId);
     }
-    confirmPayment(sessionId)
-      .then((data) => {
-        if (data.status === "PAID") {
-          setOrderStatus("PAID");
-          setShowModal(true);
-          updateCart([]);
-        }
-      })
-      .catch(() => {
-        setOrderStatus("failed");
-        setShowModal(true);
-      })
-      .finally(() => {
-        // Reset the session_id in the URL after processing
-        const url = new URL(window.location);
-        url.searchParams.delete("session_id");
-        window.history.replaceState({}, "", url);
-      });
-  }, [searchParams]);
+  },[]);
 
+  async function handleConfirmPayment(sessionId) {
+    try {
+      const data = await confirmPayment(sessionId);
+      if (data.status === "PAID") {
+        setOrderStatus("PAID");
+        setShowModal(true);
+        updateCart([]);
+      }
+    } catch {
+      setOrderStatus("failed");
+      setShowModal(true);
+    } finally {
+      // Reset the session_id in the URL after processing
+      const url = new URL(window.location);
+      url.searchParams.delete("session_id");
+      window.history.replaceState({}, "", url);
+    }
+  }
   // Fetch all orders when the component mounts
   useEffect(() => {
     const fetchOrders = async () => {
