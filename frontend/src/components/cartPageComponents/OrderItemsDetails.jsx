@@ -9,7 +9,7 @@ function OrderItemsDetails({ cartItem }) {
       <OrderItem title="Quantity" value={cartItem.quantity} />
       <OrderItem
         title="SubTotal"
-        value={`$${cartItem.product.price * cartItem.quantity}`}
+        value={`$${(cartItem.product.price * cartItem.quantity).toFixed(2)}`}
       />
     </div>
   );

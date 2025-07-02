@@ -1,10 +1,8 @@
 import ProductListPage from "../pages/ProductListPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CartPage from "../pages/CartPage";
-import AdminPage from "../pages/AdminPage";
 import {
   createBrowserRouter,
-  createHashRouter,
   createRoutesFromElements,
   Navigate,
   Route,
@@ -13,7 +11,6 @@ import NavBar from "../components/NavBar";
 import LoginPage from "../pages/LoginPage";
 import CartItemsList from "../components/cartPageComponents/CartItemsList";
 import Address from "../components/cartPageComponents/Address";
-import Payment from "../components/cartPageComponents/Payment";
 import fetchProducts from "../api/fetchProducts";
 import fetchProductById from "../api/fetchProductById";
 import OrdersPage from "../pages/OrdersPage";

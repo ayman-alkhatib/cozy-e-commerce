@@ -3,7 +3,6 @@ import { CartProvider } from "./logic/CartContext";
 import { useEffect, useState } from "react";
 import { createAppRouter } from "./logic/Router";
 import useAuth from "./hooks/useAuth";
-import { AuthProvider } from "./logic/authContext";
 
 function App() {
   const { isAuthenticated } = useAuth();

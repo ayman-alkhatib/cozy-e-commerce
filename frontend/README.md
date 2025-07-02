@@ -1,70 +1,168 @@
-# Getting Started with Create React App
+# Cozy E-Commerce Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive e-commerce web application built with React. This frontend provides a complete shopping experience with user authentication, product browsing, cart management, and order tracking.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **User Authentication**: Login and registration with JWT token management
+- **Product Catalog**: Browse and search products with detailed product pages
+- **Shopping Cart**: Add items to cart, manage quantities, and checkout
+- **Order Management**: Track order history and view order details
+- **Payment Integration**: Secure payment processing
+- **Responsive Design**: Mobile-friendly interface with modern UI components
+- **Real-time Updates**: Dynamic cart updates and order status tracking
+
+## 🛠️ Tech Stack
+
+- **React 19.0.0**: Modern React with hooks and context
+- **React Router 7.1.5**: Client-side routing and navigation
+- **CSS Modules**: Scoped styling for components
+- **JWT Authentication**: Secure token-based authentication
+- **RESTful API Integration**: Backend communication via fetch API
+
+## 📁 Project Structure
+
+```
+src/
+├── api/                    # API integration layer
+├── components/            # Reusable UI components
+│   ├── cartPageComponents/   # Cart-specific components
+│   └── ordersPageComponents/ # Order management components
+├── hooks/                 # Custom React hooks
+├── logic/                 # Business logic and context providers
+├── pages/                 # Page components
+└── services/              # Service layer for API calls
+```
+
+## 🔧 Installation & Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd cozy-e-commerce/frontend
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**
+   Create a `.env` file in the root directory with the following variables:
+   ```env
+   REACT_APP_API_URL=your_backend_api_url
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm start
+   ```
+
+## 🚀 Available Scripts
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000).
+The page will reload when you make changes, and lint errors will appear in the console.
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode.
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder.
+The build is optimized and minified for the best performance.
 
 ### `npm run eject`
+**Note: This is a one-way operation. Once you eject, you can't go back!**
+Ejects from Create React App to gain full control over configuration files.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🔐 Authentication
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The application uses JWT-based authentication:
+- **Login**: Users can log in with email/username and password
+- **Registration**: New users can create accounts
+- **Token Management**: JWT tokens are stored in localStorage
+- **Protected Routes**: Certain pages require authentication
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🛒 Shopping Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Product Management
+- Browse all products with pagination
+- View detailed product information
+- Search products by name or category
+- Product images and descriptions
 
-## Learn More
+### Cart Management
+- Add/remove items from cart
+- Update item quantities
+- Cart persistence across sessions
+- Real-time cart total calculation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Order Processing
+- Secure checkout process
+- Address management
+- Payment integration
+- Order confirmation and tracking
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🎨 UI Components
 
-### Code Splitting
+- **NavBar**: Navigation with cart icon and user menu
+- **ProductCard**: Product display with image and details
+- **SearchBar**: Product search functionality
+- **Modal**: Reusable modal component
+- **Loading**: Loading states and spinners
+- **Forms**: Login, registration, and checkout forms
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📱 Responsive Design
 
-### Analyzing the Bundle Size
+The application is fully responsive and works seamlessly across:
+- Desktop computers
+- Tablets
+- Mobile phones
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔗 API Integration
 
-### Making a Progressive Web App
+The frontend communicates with a backend API for:
+- User authentication (`/auth/login`, `/auth/register`)
+- Product data (`/product/all`, `/product/:id`)
+- Cart operations
+- Order management
+- Payment processing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🚀 Deployment
 
-### Advanced Configuration
+1. **Build the project**
+   ```bash
+   npm run build
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. **Deploy the `build` folder** to your hosting platform (Netlify, Vercel, etc.)
 
-### Deployment
+3. **Configure environment variables** on your hosting platform
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📊 Browser Support
 
-### `npm run build` fails to minify
+The application supports modern browsers:
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is part of the DWWM (Développeur Web et Web Mobile) training program.
+
+## 👥 Team
+
+Developed by Greta DWWM students as part of the e-commerce project.
+
+---
+
+*Built with ❤️ using React and modern web technologies*
