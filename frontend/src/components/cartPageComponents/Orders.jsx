@@ -3,21 +3,17 @@ import OrderItem from "./OrderItem";
 import OrderItemsDetails from "./OrderItemsDetails";
 import styles from "./Orders.module.css";
 import { useCart } from "../../logic/CartContext";
-import orderPost from "../../api/orderPost";
+import orderService from "../../services/orderService";
 function Orders() {
-  const { cart, updateCart } = useCart();
+  const { cart } = useCart();
 
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
   async function handleCheckout() {
-    if (path === "/cart/address") navigate("/cart/payment");
 
-    if (path === "/cart/items") navigate("/cart/address");
-
-    if (path === "/cart/payment") {
       const address = JSON.parse(localStorage.getItem("selectedAddress"));
-
+      
       const orderObj = {
         email: address.email,
         address: address.addressInput,
@@ -28,15 +24,11 @@ function Orders() {
           };
         }),
       };
-      const res = await orderPost(orderObj);
-      if (res.ok) {
-        updateCart([]);
-        alert("Order placed successfully!");
-        navigate("/products");
-      } else {
-        alert("something went wrong");
-      }
-    }
+     await orderService().orderPost(orderObj)
+  }
+
+  async function handleConfirm() {
+    navigate("/cart/address");
   }
 
   return (
@@ -57,7 +49,13 @@ function Orders() {
         <OrderItem title={"Estimated Tax"} value={"$0.00"} />
         <OrderItem title={"Estimated Delivery by"} value={"Wed. 10th March"} />
       </div>
-      <button onClick={handleCheckout}>checkout</button>
+      <button onClick={()=>{
+        if (path === "/cart/address") {
+          handleCheckout();
+        } else {
+          handleConfirm();
+        }
+      }}>checkout</button>
     </section>
   );
 }

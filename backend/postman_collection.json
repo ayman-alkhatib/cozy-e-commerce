@@ -1,0 +1,215 @@
+{
+  "info": {
+    "name": "Cozy E-Commerce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST /orders",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"address\": \"123 Main St\",\n  \"items\": [\n    { \"productId\": 1, \"quantity\": 2 }\n  ]\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] }
+      }
+    },
+    {
+      "name": "POST /payment/create-payment-intent",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/payment/create-payment-intent",
+          "host": ["{{baseUrl}}"],
+          "path": ["payment", "create-payment-intent"]
+        }
+      }
+    },
+    {
+      "name": "POST /payment/confirm-payment",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": 1,\n  \"paymentIntentId\": \"pi_xxx\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/payment/confirm-payment",
+          "host": ["{{baseUrl}}"],
+          "path": ["payment", "confirm-payment"]
+        }
+      }
+    },
+    {
+      "name": "GET /orders/all/user",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/orders/all/user",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "all", "user"]
+        }
+      }
+    },
+    {
+      "name": "GET /orders/id/{id}",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/orders/id/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "id", ":id"],
+          "variable": [{ "key": "id", "value": "1" }]
+        }
+      }
+    },
+    {
+      "name": "GET /orders/user",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/orders/user",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "user"]
+        }
+      }
+    },
+    {
+      "name": "POST /product/add",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Product Name\",\n  \"description\": \"Description\",\n  \"price\": 10.99,\n  \"quantity\": 100\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/product/add", "host": ["{{baseUrl}}"], "path": ["product", "add"] }
+      }
+    },
+    {
+      "name": "GET /product/all",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/product/all", "host": ["{{baseUrl}}"], "path": ["product", "all"] }
+      }
+    },
+    {
+      "name": "GET /product/quantity/{id}",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/product/quantity/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["product", "quantity", ":id"],
+          "variable": [{ "key": "id", "value": "1" }]
+        }
+      }
+    },
+    {
+      "name": "POST /product/quantity/{id}/{quantity}",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/product/quantity/:id/:quantity",
+          "host": ["{{baseUrl}}"],
+          "path": ["product", "quantity", ":id", ":quantity"],
+          "variable": [
+            { "key": "id", "value": "1" },
+            { "key": "quantity", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /product/{id}",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/product/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["product", ":id"],
+          "variable": [{ "key": "id", "value": "1" }]
+        }
+      }
+    },
+    {
+      "name": "DELETE /product/{id}",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/product/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["product", ":id"],
+          "variable": [{ "key": "id", "value": "1" }]
+        }
+      }
+    },
+    {
+      "name": "DELETE /auth/delete",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{baseUrl}}/auth/delete", "host": ["{{baseUrl}}"], "path": ["auth", "delete"] }
+      }
+    },
+    {
+      "name": "POST /auth/login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+      }
+    },
+    {
+      "name": "POST /auth/register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password\",\n  \"name\": \"User Name\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+      }
+    },
+    {
+      "name": "PUT /auth/update-password",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"oldPassword\": \"oldpass\",\n  \"newPassword\": \"newpass\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/auth/update-password", "host": ["{{baseUrl}}"], "path": ["auth", "update-password"] }
+      }
+    },
+    {
+      "name": "PUT /orders/delivered/{orderId}",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{baseUrl}}/orders/delivered/:orderId",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "delivered", ":orderId"],
+          "variable": [{ "key": "orderId", "value": "1" }]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" }
+  ]
+}

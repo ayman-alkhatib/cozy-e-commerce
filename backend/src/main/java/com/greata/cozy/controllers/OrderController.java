@@ -1,56 +1,52 @@
 package com.greata.cozy.controllers;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import com.greata.cozy.dto.OrderResponseDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import com.greata.cozy.dto.OrderRequestDTO;
 import com.greata.cozy.serveces.OrderService;
+import com.greata.cozy.dao.UserDao;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
+    private final UserDao userDao;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, UserDao userDao) {
         this.orderService = orderService;
+        this.userDao = userDao;
     }
 
     @PostMapping
-    public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequest) {
-        try {
-            orderService.createOrder(orderRequest);
-            return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(Map.of(
-                    "error", e.getMessage(),
-                    "timestamp", LocalDateTime.now()));
-        }
+    public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO, Authentication authentication) {
+            long userId = userDao.getUserIdFromAuth(authentication);
+            return orderService.createOrder(
+                    orderRequestDTO,
+                    userId
+            );
     }
 
-    @GetMapping("{email}")
-    public ResponseEntity<?> getOrdersByEmail(@PathVariable String email) {
-        return orderService.getOrderByEmail(email);
+    @PutMapping("/delivered/{orderId}")
+    public ResponseEntity<String> markOrderAsDelivered(@PathVariable long orderId) {
+        return  orderService.markOrderAsDelivered(orderId);
     }
 
-    @GetMapping("/all/{email}")
-    public ResponseEntity<List<OrderResponseDTO>> getAllOrdersByEmail(@PathVariable String email) {
-        return orderService.getAllOrdersByEmail(email);
+    @PutMapping("/cancel/{orderId}")
+    public ResponseEntity<String> cancelOrder(@PathVariable long orderId) {
+        return orderService.cancelOrder(orderId);
     }
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
-        return orderService.getOrderById(id);
-
+    @GetMapping("/all")
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrdersByUserId(Authentication authentication) {
+        long userId = userDao.getUserIdFromAuth(authentication);
+        return orderService.getAllOrdersByUserId(userId);
     }
+
 }

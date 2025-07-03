@@ -2,20 +2,24 @@ package com.greata.cozy.entities;
 
 public class Orders {
     private long id;
-    private String email;
+    private long userId;
     private String address;
+    private String status;
 
     public Orders() {
     }
 
-    public Orders(String email, String address) {
-        this.email = email;
+    public Orders(long userId, String address, String status) {
+        this.userId = userId;
         this.address = address;
+        this.status  = status;
     }
-    public Orders(long id, String email, String address) {
+
+    public Orders(long id, long userId, String address, String status) {
         this.id = id;
-        this.email = email;
+        this.userId = userId;
         this.address = address;
+        this.status = status;
     }
 
     public long getId() {
@@ -26,12 +30,12 @@ public class Orders {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getAddress() {
@@ -40,5 +44,13 @@ public class Orders {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

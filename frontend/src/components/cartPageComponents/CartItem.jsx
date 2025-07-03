@@ -28,7 +28,7 @@ export default function CartItem({ item, quantity, onRemove }) {
   }
   return (
     <div className={styles.cartItem}>
-      <img src={item.thumbnail} alt={item.name} />
+      <img loading="lazy" src={item.thumbnail} alt={item.name} />
       <div className={styles.itemInfo}>
         <h4>{item.name}</h4>
         <p>color: red green </p>
